@@ -14,7 +14,7 @@ extension UIViewController {
     func configureForTabBar(title: String, symbol: SPSafeSymbol) {
         self.tabBarItem.image = UIImage(symbol)
         self.title = title
-        self.view.backgroundColor = .systemBackground
+        self.view.backgroundColor = .black
     }
     
 }
