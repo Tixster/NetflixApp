@@ -8,6 +8,14 @@
 import UIKit
 import SPSafeSymbols
 
+enum Section: Int {
+    case TrendingMovies = 0
+    case TrandingTV = 1
+    case Popular = 2
+    case UpcomingMovies = 3
+    case TopRated = 4
+}
+
 final class HomeViewController: UIViewController {
     
     private let sectionTitles: [String] = ["Trending Movies",
@@ -17,6 +25,9 @@ final class HomeViewController: UIViewController {
                                            "Top Rated"]
     
     private var currentScrollOffest: CGFloat = .zero
+    private lazy var header = HeroHeaderUIView(frame: .init(x: .zero, y: .zero,
+                                                       width: view.bounds.width,
+                                                       height: view.bounds.height * 0.45))
     
     private lazy var homeFeedTable: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -24,9 +35,8 @@ final class HomeViewController: UIViewController {
         table.dataSource = self
         table.register(CollectionViewTableViewCell.self,
                        forCellReuseIdentifier: CollectionViewTableViewCell.reuseID)
-        table.tableHeaderView = HeroHeaderUIView(frame: .init(x: .zero, y: .zero,
-                                                              width: view.bounds.width,
-                                                              height: view.bounds.height * 0.4))
+        table.tableHeaderView = header
+        table.showsVerticalScrollIndicator = false
         return table
     }()
 
@@ -34,7 +44,6 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(homeFeedTable)
         configureNavBar()
-        getTrendingMovies()
     }
     
     override func viewDidLayoutSubviews() {
@@ -57,17 +66,6 @@ private extension HomeViewController {
             .init(image: UIImage(.play.rectangle), style: .done, target: self, action: nil)
         ]
         navigationController?.navigationBar.tintColor = .white
-    }
-    
-    func getTrendingMovies() {
-        API.shared.getTrendingMovies { result in
-            switch result {
-            case .success(let trandingMovie):
-                print(trandingMovie)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
     }
     
 }
@@ -101,6 +99,57 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.reuseID,
                                                        for: indexPath) as? CollectionViewTableViewCell
         else {
+            return CollectionViewTableViewCell()
+        }
+        switch indexPath.section {
+        case Section.TrendingMovies.rawValue:
+            API.shared.getTrendingTitles(forType: .movie) { [weak self] result in
+                switch result {
+                case .success(let trandingMovie):
+                    let url: URL = .init(stringLiteral: Constant.imagePath + (trandingMovie[0].posterPath ?? ""))
+                    self?.header.set(poster: url)
+                    cell.set(with: trandingMovie)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        case Section.TrandingTV.rawValue:
+            API.shared.getTrendingTitles(forType: .tv) { result in
+                switch result {
+                case .success(let trandingTV):
+                    cell.set(with: trandingTV)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        case Section.Popular.rawValue:
+            API.shared.getMovies(forStatus: .popular) { result in
+                switch result {
+                case .success(let popularMovie):
+                    cell.set(with: popularMovie)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        case Section.UpcomingMovies.rawValue:
+            API.shared.getMovies(forStatus: .upcoming) { result in
+                switch result {
+                case .success(let upcomingMovie):
+                    cell.set(with: upcomingMovie)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        case Section.TopRated.rawValue:
+            API.shared.getMovies(forStatus: .topRated) { result in
+                switch result {
+                case .success(let topRatedMovie):
+                    cell.set(with: topRatedMovie)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        default:
             return CollectionViewTableViewCell()
         }
         return cell

@@ -10,6 +10,7 @@ import UIKit
 final class CollectionViewTableViewCell: UITableViewCell {
 
     static let reuseID = String(describing: CollectionViewTableViewCell.self)
+    private var titles: [Title] = []
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -19,7 +20,7 @@ final class CollectionViewTableViewCell: UITableViewCell {
         collection.showsHorizontalScrollIndicator = false
         collection.delegate = self
         collection.dataSource = self
-        collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collection.register(TitleCollectionViewCell.self, forCellWithReuseIdentifier: TitleCollectionViewCell.reuseID)
         return collection
     }()
     
@@ -37,6 +38,13 @@ final class CollectionViewTableViewCell: UITableViewCell {
         collectionView.frame = contentView.bounds
     }
     
+    public func set(with titles: [Title]) {
+        self.titles = titles
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
+    
 }
 
 private extension CollectionViewTableViewCell {
@@ -51,12 +59,15 @@ private extension CollectionViewTableViewCell {
 extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return titles.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .green
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TitleCollectionViewCell.reuseID, for: indexPath) as? TitleCollectionViewCell else { return TitleCollectionViewCell() }
+        
+        guard let poserPath = titles[indexPath.item].posterPath else { return TitleCollectionViewCell() }
+        let url: URL = .init(stringLiteral: Constant.imagePath + poserPath)
+        cell.set(url: url)
         return cell
     }
     

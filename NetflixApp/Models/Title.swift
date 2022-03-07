@@ -1,5 +1,5 @@
 //
-//  Movie.swift
+//  Title.swift
 //  NetflixApp
 //
 //  Created by Кирилл Тила on 07.03.2022.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct TrendingMovieResponse: Codable {
-    let results: [Movie]
+struct TrendingTitleResponse: Codable {
+    let results: [Title]
 }
 
-struct Movie: Codable {
+struct Title: Codable {
     let id: Int
     let mediaType: String?
     let originalName: String?

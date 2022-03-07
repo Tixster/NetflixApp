@@ -13,7 +13,6 @@ final class HeroHeaderUIView: UIView {
         let view: UIImageView = .init()
         view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
-        view.image = .init(named: "heroImage")
         return view
     }()
     
@@ -32,6 +31,12 @@ final class HeroHeaderUIView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         heroImageView.frame = self.bounds
+    }
+    
+    public func set(poster url: URL?) {
+        DispatchQueue.main.async {
+            self.heroImageView.sd_setImage(with: url, completed: nil)
+        }
     }
     
 }

@@ -11,6 +11,9 @@ class UpcomingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = navigationController?.title
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationItem.largeTitleDisplayMode = .always
     }
 
 }
