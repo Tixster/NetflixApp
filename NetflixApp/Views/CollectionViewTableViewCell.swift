@@ -55,6 +55,17 @@ private extension CollectionViewTableViewCell {
         contentView.addSubview(collectionView)
     }
     
+    func downloadTitle(at indexPath: IndexPath) {
+        DataPersistenceManager.shared.downloadTitleWith(model: titles[indexPath.item]) { result in
+            switch result {
+            case .success():
+                print("++++++")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
 }
 
 extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -100,8 +111,8 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
                                           image: nil,
                                           identifier: nil,
                                           discoverabilityTitle: nil,
-                                          state: .off) { _ in
-                print("Download Tapped")
+                                          state: .off) { [weak self] _ in
+                self?.downloadTitle(at: indexPath)
             }
             return UIMenu(title: "",
                           image: nil,
