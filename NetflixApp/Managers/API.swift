@@ -8,10 +8,8 @@
 import Foundation
 
 struct Constant {
-    static let API_KEY = "facd9c0936bedd787095cb6be1ef03c0"
     static let baseURL = "https://api.themoviedb.org"
     static let imagePath = "https://image.tmdb.org/t/p/w500/"
-    static let YouTube_API_KEY = "AIzaSyBsmjxkGL6yFOWXQKWzXmgOxH0HxSYQ4v8"
     static let YouTubeBaseURL = "https://youtube.googleapis.com/youtube/v3/search?"
 }
 
@@ -35,7 +33,7 @@ final class API {
     static let shared: API = .init()
     
     func getTrendingTitles(forType type: MovieType, completion: @escaping (Result<[Title], Error>) -> Void) {
-        let url: URL = .init(stringLiteral: Constant.baseURL + "/3/trending/\(type.rawValue)/day?api_key=\(Constant.API_KEY)")
+        let url: URL = .init(stringLiteral: Constant.baseURL + "/3/trending/\(type.rawValue)/day?api_key=\(ApiKeys.API_KEY)")
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else {
                 completion(.failure(APIError.failedToGetData))
@@ -53,7 +51,7 @@ final class API {
     }
     
     func getMovies(forStatus status: MovieStatus, completion: @escaping (Result<[Title], Error>) -> Void) {
-        let url: URL = .init(stringLiteral: Constant.baseURL + "/3/movie/\(status.rawValue)?api_key=\(Constant.API_KEY)&language=en-US&page=1")
+        let url: URL = .init(stringLiteral: Constant.baseURL + "/3/movie/\(status.rawValue)?api_key=\(ApiKeys.API_KEY)&language=en-US&page=1")
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else {
                 completion(.failure(APIError.failedToGetData))
@@ -71,7 +69,7 @@ final class API {
     }
     
     func getDiscoverMoview(completion: @escaping (Result<[Title], Error>) -> Void) {
-        let url: URL = .init(stringLiteral: "\( Constant.baseURL)/3/discover/movie?api_key=\(Constant.API_KEY)&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate")
+        let url: URL = .init(stringLiteral: "\( Constant.baseURL)/3/discover/movie?api_key=\(ApiKeys.API_KEY)&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate")
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else {
                 completion(.failure(APIError.failedToGetData))
@@ -90,7 +88,7 @@ final class API {
     func search(with query: String, completion: @escaping (Result<[Title], Error>) -> Void) {
         guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
         print(query)
-        let url: URL = .init(stringLiteral: "\( Constant.baseURL)/3/search/movie?api_key=\(Constant.API_KEY)&query=\(query)")
+        let url: URL = .init(stringLiteral: "\( Constant.baseURL)/3/search/movie?api_key=\(ApiKeys.API_KEY)&query=\(query)")
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else {
                 completion(.failure(APIError.failedToGetData))
@@ -108,7 +106,7 @@ final class API {
     
     func getMovie(with query: String, completion: @escaping (Result<VideoModel, Error>) -> Void) {
         guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
-        let url: URL = .init(stringLiteral: "\(Constant.YouTubeBaseURL)q=\(query)&key=\(Constant.YouTube_API_KEY)")
+        let url: URL = .init(stringLiteral: "\(Constant.YouTubeBaseURL)q=\(query)&key=\(ApiKeys.YouTube_API_KEY)")
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else {
                 completion(.failure(APIError.failedToGetData))

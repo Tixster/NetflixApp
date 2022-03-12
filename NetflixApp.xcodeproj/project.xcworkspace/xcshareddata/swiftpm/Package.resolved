@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "SDWebImage",
+        "repositoryURL": "git@github.com:SDWebImage/SDWebImage.git",
+        "state": {
+          "branch": null,
+          "revision": "2c53f531f1bedd253f55d85105409c28ed4a922c",
+          "version": "5.12.3"
+        }
+      },
+      {
+        "package": "SPSafeSymbols",
+        "repositoryURL": "https://github.com/sparrowcode/SPSafeSymbols.git",
+        "state": {
+          "branch": "main",
+          "revision": "7b8ca2dca3bbb3fe280b1c7958e3eea943eb8abc",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
