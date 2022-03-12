@@ -22,7 +22,7 @@ final class HeroHeaderButton: UIButton {
     }
     
     convenience init(title: String) {
-        self.init(frame: .zero)
+        self.init(frame: .zero) 
         self.setTitle(title, for: .normal)
     }
 

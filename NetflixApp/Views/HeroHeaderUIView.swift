@@ -9,6 +9,8 @@ import UIKit
 
 final class HeroHeaderUIView: UIView {
     
+    private var titleMovie: Title!
+    
     private let heroImageView: UIImageView = {
         let view: UIImageView = .init()
         view.contentMode = .scaleAspectFill
@@ -17,7 +19,11 @@ final class HeroHeaderUIView: UIView {
     }()
     
     private let playButton: HeroHeaderButton = .init(title: "Play")
-    private let downloadButton: HeroHeaderButton = .init(title: "Download")
+    private let downloadButton: HeroHeaderButton = {
+        let btn: HeroHeaderButton = .init(title: "Download")
+        btn.addTarget(self, action: #selector(tapDownload), for: .touchUpInside)
+        return btn
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -34,6 +40,7 @@ final class HeroHeaderUIView: UIView {
     }
     
     public func set(with model: Title) {
+        self.titleMovie = model
         let url: URL = .init(stringLiteral: Constant.imagePath + (model.posterPath ?? ""))
         DispatchQueue.main.async {
             self.heroImageView.sd_setImage(with: url, completed: nil)
@@ -43,6 +50,18 @@ final class HeroHeaderUIView: UIView {
 }
 
 private extension HeroHeaderUIView {
+    
+    @objc
+    func tapDownload() {
+        DataPersistenceManager.shared.downloadTitleWith(model: titleMovie) { result in
+            switch result {
+            case .success():
+                print("++++++")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
     
     func setup() {
         addSubview(heroImageView)
