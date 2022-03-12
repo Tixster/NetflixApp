@@ -17,4 +17,10 @@ extension UIViewController {
         self.view.backgroundColor = .black
     }
     
+    func setupNavBar() {
+        title = navigationController?.title
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationItem.largeTitleDisplayMode = .always
+    }
+    
 }

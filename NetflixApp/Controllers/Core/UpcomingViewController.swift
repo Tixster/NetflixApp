@@ -35,9 +35,7 @@ class UpcomingViewController: UIViewController {
 private extension UpcomingViewController {
     
     func setup() {
-        title = navigationController?.title
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationItem.largeTitleDisplayMode = .always
+        setupNavBar()
         view.addSubview(upcomingTable)
     }
     
@@ -74,6 +72,28 @@ extension UpcomingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let title = titles[indexPath.row]
+        guard let titleName = title.originalTitle ?? title.originalName else { return }
+        API.shared.getMovie(with: titleName) { result in
+            switch result {
+            case .success(let movie):
+                DispatchQueue.main.async {
+                    let previewVC: TitlePreviewViewController = .init()
+                    let previewTitle: TitlePreviewModel = .init(title: titleName,
+                                                                youtubeView: movie,
+                                                                titleOverview: title.overview ?? "")
+                    previewVC.set(with: previewTitle)
+                    self.navigationController?.pushViewController(previewVC, animated: true)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     

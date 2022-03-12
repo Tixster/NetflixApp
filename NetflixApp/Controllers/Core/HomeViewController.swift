@@ -17,7 +17,7 @@ enum Section: Int {
 }
 
 final class HomeViewController: UIViewController {
-    
+
     private let sectionTitles: [String] = ["Trending Movies",
                                            "Tranding TV",
                                            "Popular",
@@ -26,8 +26,8 @@ final class HomeViewController: UIViewController {
     
     private var currentScrollOffest: CGFloat = .zero
     private lazy var header = HeroHeaderUIView(frame: .init(x: .zero, y: .zero,
-                                                       width: view.bounds.width,
-                                                       height: view.bounds.height * 0.45))
+                                                            width: view.bounds.width,
+                                                            height: view.bounds.height * 0.45))
     
     private lazy var homeFeedTable: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -106,8 +106,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             API.shared.getTrendingTitles(forType: .movie) { [weak self] result in
                 switch result {
                 case .success(let trandingMovie):
-                    let url: URL = .init(stringLiteral: Constant.imagePath + (trandingMovie[0].posterPath ?? ""))
-                    self?.header.set(poster: url)
+                    self?.header.set(with: trandingMovie.randomElement() ?? trandingMovie[0])
                     cell.set(with: trandingMovie)
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -151,6 +150,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             }
         default:
             return CollectionViewTableViewCell()
+        }
+        cell.didTapCallback = { [weak self] videoModel in
+            DispatchQueue.main.async {
+                let previewVC = TitlePreviewViewController()
+                previewVC.set(with: videoModel)
+                self?.navigationController?.pushViewController(previewVC, animated: true)
+            }
         }
         return cell
     }

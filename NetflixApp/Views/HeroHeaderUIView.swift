@@ -33,7 +33,8 @@ final class HeroHeaderUIView: UIView {
         heroImageView.frame = self.bounds
     }
     
-    public func set(poster url: URL?) {
+    public func set(with model: Title) {
+        let url: URL = .init(stringLiteral: Constant.imagePath + (model.posterPath ?? ""))
         DispatchQueue.main.async {
             self.heroImageView.sd_setImage(with: url, completed: nil)
         }
@@ -54,7 +55,7 @@ private extension HeroHeaderUIView {
     func addGradient() {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [UIColor.clear.cgColor,
-                                UIColor.systemBackground.cgColor]
+                                UIColor.black.cgColor]
         gradientLayer.frame = self.bounds
         layer.addSublayer(gradientLayer)
     }

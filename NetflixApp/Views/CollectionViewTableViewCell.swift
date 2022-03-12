@@ -11,6 +11,7 @@ final class CollectionViewTableViewCell: UITableViewCell {
 
     static let reuseID = String(describing: CollectionViewTableViewCell.self)
     private var titles: [Title] = []
+    var didTapCallback: ((TitlePreviewModel) -> Void)?
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -69,6 +70,24 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
         let url: URL = .init(stringLiteral: Constant.imagePath + poserPath)
         cell.set(url: url)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        let title = titles[indexPath.row]
+        guard let titleName = title.originalTitle ?? title.originalName else { return }
+        API.shared.getMovie(with: titleName + " " + "trailer") { [weak self] result in
+            switch result {
+            case .success(let video):
+                let videoModel: TitlePreviewModel = .init(title: (title.originalName ?? title.originalTitle) ?? "",
+                                                          youtubeView: video,
+                                                          titleOverview: title.overview ?? "")
+                self?.didTapCallback?(videoModel)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
 }
