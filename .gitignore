@@ -83,7 +83,7 @@ fastlane/screenshots/**/*.png
 fastlane/test_output
 
 #API
-/Managers/ApiKeys.swift
+**/ApiKeys.swift
 
 # Code Injection
 #
