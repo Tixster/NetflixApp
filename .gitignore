@@ -83,7 +83,7 @@ fastlane/screenshots/**/*.png
 fastlane/test_output
 
 #API
-NetflixApp/Managers/ApiKeys.swift
+/Managers/ApiKeys.swift
 
 # Code Injection
 #
