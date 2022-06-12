@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SPSafeSymbols
+import SafeSFSymbols
 
 final class TitleTableViewCell: UITableViewCell {
     

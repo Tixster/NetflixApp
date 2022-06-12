@@ -21,7 +21,7 @@ final class HeroHeaderUIView: UIView {
     private let playButton: HeroHeaderButton = .init(title: "Play")
     private let downloadButton: HeroHeaderButton = {
         let btn: HeroHeaderButton = .init(title: "Download")
-        btn.addTarget(self, action: #selector(tapDownload), for: .touchUpInside)
+        btn.addTarget(nil, action: #selector(tapDownload), for: .touchUpInside)
         return btn
     }()
 

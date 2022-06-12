@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SPSafeSymbols
+import SafeSFSymbols
 
 enum Section: Int {
     case TrendingMovies = 0
@@ -60,6 +60,7 @@ private extension HomeViewController {
         image = image?.withRenderingMode(.alwaysOriginal)
         let leftItem: UIBarButtonItem = .init(image: image, style: .done,
                                               target: self, action: nil)
+        leftItem.imageInsets = .init(top: 5, left: 0, bottom: -5, right: 0)
         navigationItem.leftBarButtonItem = leftItem
         navigationItem.rightBarButtonItems = [
             .init(image: UIImage(.person), style: .done, target: self, action: nil),

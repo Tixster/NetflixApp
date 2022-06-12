@@ -7,11 +7,11 @@
 
 import Foundation
 import UIKit
-import SPSafeSymbols
+import SafeSFSymbols
 
 extension UIViewController {
     
-    func configureForTabBar(title: String, symbol: SPSafeSymbol) {
+    func configureForTabBar(title: String, symbol: SafeSFSymbol) {
         self.tabBarItem.image = UIImage(symbol)
         self.title = title
         self.view.backgroundColor = .black

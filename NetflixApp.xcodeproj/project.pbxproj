@@ -23,7 +23,6 @@
 		3EF3B1D527D621DA003B92B0 /* UpcomingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF3B1D427D621DA003B92B0 /* UpcomingViewController.swift */; };
 		3EF3B1D727D621FF003B92B0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF3B1D627D621FF003B92B0 /* SearchViewController.swift */; };
 		3EF3B1D927D6221A003B92B0 /* DownloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF3B1D827D6221A003B92B0 /* DownloadViewController.swift */; };
-		3EF3B1DC27D62908003B92B0 /* SPSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 3EF3B1DB27D62908003B92B0 /* SPSafeSymbols */; };
 		3EF3B1DF27D62B38003B92B0 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF3B1DE27D62B38003B92B0 /* UIViewController.swift */; };
 		3EF3B1E627D631A3003B92B0 /* CollectionViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF3B1E527D631A3003B92B0 /* CollectionViewTableViewCell.swift */; };
 		3EF3B1E827D636FA003B92B0 /* HeroHeaderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF3B1E727D636FA003B92B0 /* HeroHeaderUIView.swift */; };
@@ -32,10 +31,10 @@
 		3EF3B1EE27D65CFE003B92B0 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF3B1ED27D65CFE003B92B0 /* URL.swift */; };
 		3EF3B1F027D66105003B92B0 /* Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF3B1EF27D66105003B92B0 /* Title.swift */; };
 		3EF3B1F227D673ED003B92B0 /* TitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF3B1F127D673ED003B92B0 /* TitleCollectionViewCell.swift */; };
-		3EF3B1F527D67500003B92B0 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3EF3B1F427D67500003B92B0 /* SDWebImage */; };
-		3EF3B1F727D67500003B92B0 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3EF3B1F627D67500003B92B0 /* SDWebImageMapKit */; };
 		3EF3B1F927D682CF003B92B0 /* TitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF3B1F827D682CF003B92B0 /* TitleTableViewCell.swift */; };
 		3EF3B1FB27D68508003B92B0 /* TitleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF3B1FA27D68508003B92B0 /* TitleViewModel.swift */; };
+		3EF9A9F7285665D1004B99AF /* SafeSFSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = 3EF9A9F6285665D1004B99AF /* SafeSFSymbols */; };
+		3EF9A9F9285665D5004B99AF /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 3EF9A9F8285665D5004B99AF /* SDWebImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,9 +73,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EF3B1F527D67500003B92B0 /* SDWebImage in Frameworks */,
-				3EF3B1F727D67500003B92B0 /* SDWebImageMapKit in Frameworks */,
-				3EF3B1DC27D62908003B92B0 /* SPSafeSymbols in Frameworks */,
+				3EF9A9F9285665D5004B99AF /* SDWebImage in Frameworks */,
+				3EF9A9F7285665D1004B99AF /* SafeSFSymbols in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +106,7 @@
 			children = (
 				3EF3B1BC27D61F52003B92B0 /* NetflixApp */,
 				3EF3B1BB27D61F52003B92B0 /* Products */,
+				3EF9A9F5285665D1004B99AF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -205,6 +204,13 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
+		3EF9A9F5285665D1004B99AF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -222,9 +228,8 @@
 			);
 			name = NetflixApp;
 			packageProductDependencies = (
-				3EF3B1DB27D62908003B92B0 /* SPSafeSymbols */,
-				3EF3B1F427D67500003B92B0 /* SDWebImage */,
-				3EF3B1F627D67500003B92B0 /* SDWebImageMapKit */,
+				3EF9A9F6285665D1004B99AF /* SafeSFSymbols */,
+				3EF9A9F8285665D5004B99AF /* SDWebImage */,
 			);
 			productName = NetflixApp;
 			productReference = 3EF3B1BA27D61F52003B92B0 /* NetflixApp.app */;
@@ -257,6 +262,7 @@
 			packageReferences = (
 				3EF3B1DA27D62908003B92B0 /* XCRemoteSwiftPackageReference "SPSafeSymbols" */,
 				3EF3B1F327D67500003B92B0 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				3E4CCE6D27E5DC8A006DD013 /* XCRemoteSwiftPackageReference "SPSafeSymbols" */,
 			);
 			productRefGroup = 3EF3B1BB27D61F52003B92B0 /* Products */;
 			projectDirPath = "";
@@ -519,6 +525,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3E4CCE6D27E5DC8A006DD013 /* XCRemoteSwiftPackageReference "SPSafeSymbols" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparrowcode/SPSafeSymbols.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		3EF3B1DA27D62908003B92B0 /* XCRemoteSwiftPackageReference "SPSafeSymbols" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sparrowcode/SPSafeSymbols.git";
@@ -538,20 +552,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3EF3B1DB27D62908003B92B0 /* SPSafeSymbols */ = {
+		3EF9A9F6285665D1004B99AF /* SafeSFSymbols */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3EF3B1DA27D62908003B92B0 /* XCRemoteSwiftPackageReference "SPSafeSymbols" */;
-			productName = SPSafeSymbols;
+			productName = SafeSFSymbols;
 		};
-		3EF3B1F427D67500003B92B0 /* SDWebImage */ = {
+		3EF9A9F8285665D5004B99AF /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3EF3B1F327D67500003B92B0 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
-		};
-		3EF3B1F627D67500003B92B0 /* SDWebImageMapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3EF3B1F327D67500003B92B0 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImageMapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 
